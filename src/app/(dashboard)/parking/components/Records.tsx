@@ -19,6 +19,7 @@ export function Records() {
     const fetchRecords = async () => {
       try {
         const data = await getAllRecords();
+        console.log("🚀 ~ file: Records.tsx:22 ~ data:", data)
         setRecords(data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Error al cargar registros');

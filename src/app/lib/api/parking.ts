@@ -6,12 +6,18 @@ interface ParkingRecord {
   entryTime: string;
   exitTime?: string;
 }
+
+function getAuthHeaders() {
+  return {
+    'Content-Type': 'application/json',
+  };
+}
+
 export async function registerVehicleEntry(plate: string) {
   const res = await fetch(`${API_BASE_URL}/parking/entry`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: getAuthHeaders(),
+    credentials: 'include', 
     body: JSON.stringify({ plate }),
   });
 
@@ -26,9 +32,8 @@ export async function registerVehicleEntry(plate: string) {
 export const registerExit = async (plate: string): Promise<ParkingRecord> => {
   const response = await fetch(`${API_BASE_URL}/parking/exit`, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: getAuthHeaders(),
+    credentials: 'include',
     body: JSON.stringify({ plate }),
   });
 
@@ -43,9 +48,8 @@ export const registerExit = async (plate: string): Promise<ParkingRecord> => {
 export const getAllRecords = async (): Promise<ParkingRecord[]> => {
   const response = await fetch(`${API_BASE_URL}/parking`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: getAuthHeaders(),
+    credentials: 'include',
   });
 
   if (!response.ok) {
